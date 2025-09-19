@@ -1,5 +1,7 @@
 import z from "zod";
+import dotenv from "dotenv";
 
+dotenv.config();
 const envSchema = z.object({
   PORT: z.number(),
   WHITELISTED_ORIGINS: z.array(z.string()),
