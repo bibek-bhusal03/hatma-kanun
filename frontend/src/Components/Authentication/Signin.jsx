@@ -4,6 +4,9 @@ const Signin = () => {
   return (
     <div className="w-full flex items-center justify-center h-screen">
       <div className="p-10 border-1 border-black rounded-4xl">
+        <div className="bg-gray-400">
+          <img src="logo/logo.png" alt="logo" className="w-lg h-lg" />
+        </div>
         <h1 className="text-2xl font-bold text-blue-600 text-center">
           Welcome back
         </h1>

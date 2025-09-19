@@ -12,8 +12,8 @@ function App() {
         {/* <Dashboard />
         <Navbar /> */}
 
-        <Signup />
-        {/* <Signin /> */}
+        {/* <Signup /> */}
+        <Signin />
         {/* <AdminDashboard /> */}
       </>
     </>
