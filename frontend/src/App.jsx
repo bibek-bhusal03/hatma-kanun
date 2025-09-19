@@ -4,6 +4,8 @@ import Navbar from "./Components/Navbar/Navbar";
 import Signup from "./Components/Authentication/Signup";
 import Signin from "./Components/Authentication/Signin";
 import AdminDashboard from "./Components/Admin/Dashboard";
+import NoticeAnnouncement from "./Components/Home/NoticeAnnouncement";
+import BudgetAllocation from "./Components/Home/BudgetAllocation";
 
 function App() {
   return (
@@ -12,8 +14,10 @@ function App() {
         {/* <Dashboard />
         <Navbar /> */}
 
+        <BudgetAllocation />
+        {/* <NoticeAnnouncement /> */}
         {/* <Signup /> */}
-        <Signin />
+        {/* <Signin /> */}
         {/* <AdminDashboard /> */}
       </>
     </>
