@@ -7,10 +7,7 @@ const BudgetAllocation = () => {
     <>
       <div className="p-10">
         <div className="flex items-center justify-center">
-          {/* <img src="logo/logo-full.png" alt="logo" className=" h-[60px]" /> */}
-          <div className="text-center text-5xl font-bold text-blue-500">
-            Sonika
-          </div>
+          <img src="logo/logo-full.png" alt="logo" className=" h-[60px]" />
         </div>
         <div className="flex items-center text-sm text-gray-800">
           <p>Home</p>
