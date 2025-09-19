@@ -3,6 +3,8 @@ import DashboardCard from "./Components/Dashboard/DashboardCard";
 import Navbar from "./Components/Navbar/Navbar";
 import Signup from "./Components/Authentication/Signup";
 import Signin from "./Components/Authentication/Signin";
+import AdminDashboard from "./Components/Admin/Dashboard";
+
 function App() {
   return (
     <>
@@ -10,8 +12,9 @@ function App() {
         {/* <Dashboard />
         <Navbar /> */}
 
-        {/* <Signup /> */}
+        <Signup />
         {/* <Signin /> */}
+        {/* <AdminDashboard /> */}
       </>
     </>
   );
