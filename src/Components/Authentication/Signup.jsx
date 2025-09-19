@@ -10,7 +10,7 @@ const Signup = () => {
         <p className="text-md text-center text-gray-400/90">
           Set Up your account
         </p>
-        <form action="" className="flex flex-col gap-1 ">
+        <form action="" className="flex flex-col gap-3 ">
           <div className="flex text-lg flex-col gap-1">
             <label htmlFor="name" className="text-sm font-semibold">
               Name
@@ -37,7 +37,7 @@ const Signup = () => {
           </div>
           <div className="flex text-lg flex-col">
             <label htmlFor="phone" className="text-sm font-semibold">
-              Email
+              Phone Number
             </label>
             <input
               type="number"
@@ -72,8 +72,8 @@ const Signup = () => {
           <div className="flex items-center justify-center w-full">
             <input
               type="submit"
-              value="Submit"
-              className="bg-blue-400 text-white mt-4 px-7 py-1 rounded-md cursor-pointer hover:bg-blue-500"
+              value="Sign up"
+              className="bg-blue-400 text-white mt-4  w-[150px] py-2 rounded-md cursor-pointer hover:bg-blue-500"
             />
           </div>
         </form>
