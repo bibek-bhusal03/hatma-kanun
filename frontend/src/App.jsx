@@ -16,12 +16,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Signup />} />
-        <Route path="/otp" element={<Otp />} />
-      </Routes>
-    </Router>
+    // <Router>
+    //   <Routes>
+    //     <Route path="/" element={<Signup />} />
+    //     <Route path="/otp" element={<Otp />} />
+    //   </Routes>
+    // </Router>
+
+    <Navbar />
   );
 }
 
