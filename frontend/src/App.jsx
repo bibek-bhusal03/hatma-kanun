@@ -1,5 +1,4 @@
 import Dashboard from "./Components/Dashboard/Dashboard";
-import DashboardCard from "./Components/Dashboard/DashboardCard";
 import Navbar from "./Components/Navbar/Navbar";
 import Signup from "./Components/Authentication/Signup";
 import Signin from "./Components/Authentication/Signin";
@@ -22,8 +21,10 @@ function App() {
     //     <Route path="/otp" element={<Otp />} />
     //   </Routes>
     // </Router>
-
-    <Navbar />
+    <>
+      <Dashboard />
+      <Navbar />
+    </>
   );
 }
 
