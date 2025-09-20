@@ -1,8 +1,16 @@
 import mongoose, { Schema, Document } from "mongoose";
+
 export enum Role {
   ADMIN = "admin",
   USER = "user",
 }
+
+export enum Status {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+  BANNED = "banned",
+}
+
 export interface IUser extends Document {
   name: string;
   email: string;
@@ -10,6 +18,7 @@ export interface IUser extends Document {
   phone_no: number;
   is_email_verified: boolean;
   role: Role;
+  status?: Status;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -19,7 +28,18 @@ const UserSchema = new Schema<IUser>(
     password: { type: String, required: true },
     phone_no: { type: Number, required: true },
     is_email_verified: { type: Boolean, required: false, default: false },
-    role: { type: String, enum: Object.values(Role), default: Role.USER },
+    role: {
+      type: String,
+      enum: Object.values(Role),
+      required: false,
+      default: Role.USER,
+    },
+    status: {
+      type: String,
+      enum: Object.values(Status),
+      required: false,
+      default: Status.ACTIVE,
+    },
   },
   { timestamps: true }
 );

@@ -1,0 +1,54 @@
+// controllers/userController.ts
+import { Request, Response } from "express";
+import mongoose from "mongoose";
+import { User, IUser } from "../models/User";
+
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await User.find().select("-password"); // don’t return password
+    res.status(200).json(users);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    const user = await User.findById(id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const updateUserRole = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { role, status } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    const updateData: Partial<IUser> = {};
+    if (role) updateData.role = role;
+    if (status) updateData.status = status;
+
+    const user = await User.findByIdAndUpdate(id, updateData, {
+      new: true,
+    }).select("-password");
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+};
