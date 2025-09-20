@@ -9,8 +9,7 @@ import {
 import { upload } from "../middlewares/multer";
 
 const router = Router();
-
-router.post("/", upload.array("documents"), createApplication);
+router.post("/", upload.array("files", 5), createApplication);
 router.get("/", getApplications);
 router.get("/:id", getApplicationById);
 router.put("/:id/status", updateApplicationStatus);

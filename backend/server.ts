@@ -43,8 +43,8 @@ app.use("/api/rtiRequest", rtiRequestRoutes);
 app.use("/api/project", projectRoutes);
 
 app.use("/uploads", express.static("uploads"));
-app.use("/pdfs", express.static(path.join(__dirname, "..", "public", "pdfs")));
+app.use("/pdfs", express.static("pdfs"));
 
-app.listen(env.PORT, (req, res) => {
+app.listen(env.PORT, () => {
   console.log(`Server listening on port ${env.PORT}`);
 });
