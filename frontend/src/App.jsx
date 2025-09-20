@@ -19,7 +19,7 @@ function App() {
         {/* <Dashboard /> */}
         {/* <Navbar /> */}
 
-        <AwarenessNotice />
+        {/* <AwarenessNotice /> */}
         {/* <CreateAwarenessPost /> */}
         {/* <EditProject /> */}
         {/* <ProjectDashboard /> */}
