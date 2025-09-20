@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div className="fixed bottom-1 left-2 right-2 flex items-center justify-around text-[#374151] bg-[#ffffff] text-[20px] px-2 py-4 rounded-xl text-sm border-1 border-gray-500/50">
       <div className="flex flex-col items-center justify-center">
-        <div className="flex justify-center p-2 pb-0 rounded-full items-center cursor-pointer">
+        <div className="flex justify-center p-2  rounded-full items-center cursor-pointer">
           <MdHome style={{ fontSize: "25px" }} />
         </div>
         <p className="text-sm">Home</p>
