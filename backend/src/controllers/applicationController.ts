@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { Application } from "../models/Application";
 import { generateSifarisPDF } from "./utils/generatePdf";
 
-// Create new Application
-
 export const createApplication = async (req: Request, res: Response) => {
   try {
     const files = req.files as Express.Multer.File[];
