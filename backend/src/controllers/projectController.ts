@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Project } from "../models/Project";
-import { IdGenerator } from "./utils/projectIdGenerator";
 
 export const createProject = async (req: Request, res: Response) => {
   try {
@@ -23,7 +22,7 @@ export const getProjects = async (_req: Request, res: Response) => {
 
 export const getProjectById = async (req: Request, res: Response) => {
   try {
-    const project = await Project.findById(req.params.id);
+    const project = await Project.findById(req.params.id).populate("category");
     project
       ? res.json(project)
       : res.status(404).json({ message: "Project not found" });
@@ -36,7 +35,7 @@ export const updateProject = async (req: Request, res: Response) => {
   try {
     const project = await Project.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-    });
+    }).populate("category");
     project
       ? res.json(project)
       : res.status(404).json({ message: "Project not found" });
