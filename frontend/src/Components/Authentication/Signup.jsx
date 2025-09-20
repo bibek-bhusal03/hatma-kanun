@@ -13,7 +13,7 @@ const Signup = () => {
         <form action="" className="flex flex-col gap-3 ">
           <div className="flex text-lg flex-col gap-1">
             <label htmlFor="name" className="text-sm font-semibold">
-              Name
+              Full Name
             </label>
             <input
               type="text"
@@ -68,6 +68,12 @@ const Signup = () => {
               name="confirm-password"
               className="outline:none focus:outline-blue-500  border-1 border-blue-300 px-3 py-1 rounded-md text-sm"
             />
+          </div>
+          <div className="flex items-center gap-1">
+            <input type="checkbox" id="checkbox" />
+            <label htmlFor="checkbox" className="text-sm">
+              I Agree All Statements In Terms Of Service.
+            </label>
           </div>
           <div className="flex items-center justify-center w-full">
             <input
