@@ -9,16 +9,20 @@ import BudgetAllocation from "./Components/Home/BudgetAllocation";
 import AddNewProject from "./Components/Project/AddNewProject";
 import ProjectDashboard from "./Components/Project/ProjectDashboard";
 import EditProject from "./Components/Project/EditProject";
+import CreateAwarenessPost from "./Components/Notice/CreateAwarenessPost";
+import AwarenessNotice from "./Components/Notice/AwarenessNotice";
 
 function App() {
   return (
     <>
       <>
-        {/* <Dashboard />
-        <Navbar /> */}
+        {/* <Dashboard /> */}
+        {/* <Navbar /> */}
 
+        <AwarenessNotice />
+        {/* <CreateAwarenessPost /> */}
         {/* <EditProject /> */}
-        <ProjectDashboard />
+        {/* <ProjectDashboard /> */}
         {/* <AddNewProject /> */}
         {/* <BudgetAllocation /> */}
         {/* <NoticeAnnouncement /> */}
