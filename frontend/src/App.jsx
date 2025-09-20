@@ -13,7 +13,7 @@ import EditProject from "./Components/Project/EditProject";
 import CreateAwarenessPost from "./Components/Notice/CreateAwarenessPost";
 import AwarenessNotice from "./Components/Notice/AwarenessNotice";
 import Layout from "./Components/Navbar/Layout";
-
+import ESifarisApplication from "./Components/ESifaris/ESifarisApplication";
 import { Navigate, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -23,13 +23,14 @@ function App() {
       <Route path="/signin" element={<Signin />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/otp" element={<Otp />} />
+      <Route path="/esifaris" element={<ESifarisApplication />} />
 
       {/* Routes with Navbar */}
       <Route element={<Layout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/reports" element={<AdminDashboard />} />
-        {/* <Route path="/call" element={<Call />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/calls" element={<ProjectDashboard />} />
+        {/* <Route path="/settings" element={<Settings />} />
         <Route path="/map" element={<Map />} /> */}
       </Route>
 
