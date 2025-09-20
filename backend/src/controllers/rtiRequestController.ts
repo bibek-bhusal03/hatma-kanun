@@ -26,7 +26,7 @@ export const createRTIRequest = async (req: Request, res: Response) => {
       phoneEmail,
       detailedRequest,
       attachments: req.files
-        ? (req.files as Request.Multer.File[]).map((file) => ({
+        ? (req.files as Express.Multer.File[]).map((file) => ({
             name: file.originalname,
             filePath: file.path,
             fileType: file.mimetype,
