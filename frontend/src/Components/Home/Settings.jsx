@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { MdEmail, MdPhone, MdLanguage } from "react-icons/md";
+import { useLocalGovStore } from "../../stores/localGovStore";
+import { SlLocationPin } from "react-icons/sl";
 
 const Settings = () => {
+  const { localGov } = useLocalGovStore();
   const [user, setUser] = useState({
     name: "Arun Sharma",
     email: "arun.sharma@example.com",
@@ -40,6 +43,12 @@ const Settings = () => {
           )}
           <h2 className="mt-3 text-xl font-bold text-gray-800">{user.name}</h2>
           <p className="text-sm text-gray-500">{user.email}</p>
+          <div>
+            <p className="text-sm flex items-center justify-center">
+              <SlLocationPin />{" "}
+              {localGov || "Detecting your local government..."}
+            </p>
+          </div>
         </div>
 
         {/* User Information */}

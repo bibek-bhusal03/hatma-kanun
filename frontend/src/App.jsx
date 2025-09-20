@@ -1,3 +1,4 @@
+import React from "react";
 import Dashboard from "./Components/Dashboard/Dashboard";
 
 import Signup from "./Components/Authentication/Signup";
@@ -16,9 +17,12 @@ import Settings from "./Components/Home/Settings";
 import ESifarisApplication from "./Components/ESifaris/ESifarisApplication";
 import RtiRequestForm from "./Components/RtiRequestForm/RtiRequestForm";
 import Call from "./Components/Home/Call";
+import { useLocalGovernment } from "./hooks/useLocalGovernment";
 import { Navigate, Routes, Route } from "react-router-dom";
 
 function App() {
+  useLocalGovernment();
+
   return (
     <Routes>
       {/* Auth routes - no navbar */}

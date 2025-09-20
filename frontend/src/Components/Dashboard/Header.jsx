@@ -3,8 +3,11 @@ import { FaUser } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
 import { CiGlobe } from "react-icons/ci";
 import { X } from "lucide-react";
+import { useLocalGovStore } from "../../stores/localGovStore";
+import { SlLocationPin } from "react-icons/sl";
 
 const Header = () => {
+  const { localGov } = useLocalGovStore();
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([
     {
@@ -68,12 +71,18 @@ const Header = () => {
         <div className="bg-blue-400 rounded-full p-2.5 flex items-center justify-center">
           <FaUser style={{ fontSize: "20px", color: "white" }} />
         </div>
+
         <div className="flex flex-col justify-center gap-2">
           <p className="text-[14px] text-gray-600/80">Hello,</p>
           <p>Arun Neupane</p>
         </div>
       </div>
 
+      <div>
+        <p className="text-sm flex items-center justify-center">
+          <SlLocationPin /> {localGov || "Detecting your local government..."}
+        </p>
+      </div>
       {/* Right side */}
       <div className="flex items-center gap-3 relative" ref={dropdownRef}>
         {/* Notifications Button */}
