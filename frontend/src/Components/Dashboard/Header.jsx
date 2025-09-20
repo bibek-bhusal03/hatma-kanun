@@ -81,7 +81,7 @@ const Header = () => {
           className="flex items-center px-2 py-2 bg-gray-400/60 cursor-pointer rounded-full relative"
           onClick={() => setOpen(!open)}
         >
-          <IoIosNotifications style={{ fontSize: "20px" }} />
+          <IoIosNotifications style={{ fontSize: "25px" }} />
           {unreadCount > 0 && (
             <span className="absolute top-1 right-1 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">
               {unreadCount}
@@ -91,7 +91,7 @@ const Header = () => {
 
         {/* Globe Button */}
         <button className="flex items-center px-2 py-2 bg-gray-400/60 cursor-pointer rounded-full">
-          <CiGlobe style={{ fontSize: "20px" }} />
+          <CiGlobe style={{ fontSize: "25px" }} />
         </button>
 
         {/* Popup */}
