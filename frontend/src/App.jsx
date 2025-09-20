@@ -14,6 +14,7 @@ import CreateAwarenessPost from "./Components/Notice/CreateAwarenessPost";
 import AwarenessNotice from "./Components/Notice/AwarenessNotice";
 import Layout from "./Components/Navbar/Layout";
 import ESifarisApplication from "./Components/ESifaris/ESifarisApplication";
+import RtiRequestForm from "./Components/RtiRequestForm/RtiRequestForm";
 import { Navigate, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/otp" element={<Otp />} />
       <Route path="/esifaris" element={<ESifarisApplication />} />
+      <Route path="/RtiRequestForm" element={<RtiRequestForm />} />
 
       {/* Routes with Navbar */}
       <Route element={<Layout />}>

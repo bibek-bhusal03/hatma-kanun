@@ -3,6 +3,7 @@ import { CiFileOn } from "react-icons/ci";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { GiReceiveMoney } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
+import RtiRequestForm from "../RtiRequestForm/RtiRequestForm";
 
 const Services = () => {
   return (
@@ -18,12 +19,15 @@ const Services = () => {
           </div>
           <p className="text-[12px] font-semibold">E-Sifaris</p>
         </NavLink>
-        <div className="flex flex-col gap-2 items-center cursor-pointer">
+        <NavLink
+          to="/RtiRequestForm"
+          className="flex flex-col gap-2 items-center cursor-pointer"
+        >
           <div className="flex items-center justify-center bg-purple-400 p-3 rounded-full text-white">
             <IoInformationCircleOutline color={{ fontSize: "35px" }} />
           </div>
           <p className="text-[12px] font-semibold">RTI</p>
-        </div>
+        </NavLink>
         <div className="flex flex-col gap-2 items-center cursor-pointer">
           <div className="flex items-center justify-center bg-green-400 p-3 rounded-full text-white">
             <GiReceiveMoney color={{ fontSize: "35px" }} />
