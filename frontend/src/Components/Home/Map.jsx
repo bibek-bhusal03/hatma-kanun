@@ -31,7 +31,7 @@ const dummyLocations = [
     id: 4,
     title: "Chitwan National Park",
     description: "Famous for wildlife safaris.",
-    latitude: 27.1341,
+    latitude: 27.5341,
     longitude: 84.4604,
     icon: "https://cdn-icons-png.flaticon.com/512/616/616408.png",
   },
@@ -55,35 +55,65 @@ const Map = () => {
     map.current = new maplibregl.Map({
       container: mapContainer.current,
       style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-      center: [85.324, 27.7172], // Default: Kathmandu
+      center: [85.324, 27.7172], // Default Kathmandu
       zoom: 6,
     });
 
     map.current.addControl(new maplibregl.NavigationControl(), "top-right");
 
-    // Try to get user's current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const userLng = pos.coords.longitude;
-          const userLat = pos.coords.latitude;
+    // Function to locate user
+    const locateUser = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const userLng = pos.coords.longitude;
+            const userLat = pos.coords.latitude;
 
-          // Fly to user's location
-          map.current.flyTo({ center: [userLng, userLat], zoom: 12 });
+            map.current.flyTo({ center: [userLng, userLat], zoom: 12 });
 
-          // Add user marker
-          new maplibregl.Marker({ color: "blue" })
-            .setLngLat([userLng, userLat])
-            .setPopup(new maplibregl.Popup().setText("You are here"))
-            .addTo(map.current);
-        },
-        () => {
-          console.warn("Geolocation permission denied or unavailable.");
-        }
-      );
+            new maplibregl.Marker({ color: "blue" })
+              .setLngLat([userLng, userLat])
+              .setPopup(new maplibregl.Popup().setText("You are here"))
+              .addTo(map.current);
+          },
+          () => {
+            alert("Unable to access location. Please enable GPS.");
+          }
+        );
+      } else {
+        alert("Geolocation not supported in this browser.");
+      }
+    };
+
+    // Add custom "Locate Me" button
+    class LocateControl {
+      onAdd(mapInstance) {
+        this._map = mapInstance;
+        this._btn = document.createElement("button");
+        this._btn.className =
+          "maplibregl-ctrl-icon maplibregl-ctrl-locate bg-white rounded p-1 shadow";
+        this._btn.type = "button";
+        this._btn.title = "Locate Me";
+        this._btn.innerHTML = "📍";
+        this._btn.onclick = locateUser;
+
+        const container = document.createElement("div");
+        container.className = "maplibregl-ctrl maplibregl-ctrl-group";
+        container.appendChild(this._btn);
+        return container;
+      }
+      onRemove() {
+        this._btn.parentNode.removeChild(this._btn);
+        this._map = undefined;
+      }
     }
 
-    // Add dummy markers
+    map.current.addControl(new LocateControl(), "top-left");
+
+    //  Auto-locate on first load
+    locateUser();
+
+    //  Add dummy markers
     dummyLocations.forEach((location) => {
       const el = document.createElement("div");
       el.className = "marker";
