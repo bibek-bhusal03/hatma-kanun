@@ -86,7 +86,7 @@ const Signup = () => {
         });
         // Redirect after 1.5s
         setTimeout(() => {
-          navigate("/otp", { state: result });
+          navigate("/otp", { email: formData.email, state: result });
         }, 1500);
       } else {
         setResponseMsg({
