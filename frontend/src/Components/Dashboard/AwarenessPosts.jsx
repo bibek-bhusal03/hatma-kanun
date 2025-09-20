@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { X } from "lucide-react"; // ✅ Lucide React icon
+import { X } from "lucide-react";
 
 const AwarenessPosts = () => {
   const [selectedPost, setSelectedPost] = useState(null);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   // 🔹 Lock background scroll when modal is open
   useEffect(() => {
@@ -13,10 +14,11 @@ const AwarenessPosts = () => {
     }
     return () => {
       document.body.style.overflow = "auto";
+      window.speechSynthesis.cancel(); // stop speech if modal closes
     };
   }, [selectedPost]);
 
-  // 🔹 Dummy data (replace later with API fetch)
+  // 🔹 Dummy data
   const posts = [
     {
       id: 1,
@@ -52,6 +54,29 @@ const AwarenessPosts = () => {
     },
   ];
 
+  // 🔊 Text-to-Speech
+  const handleSpeak = (post) => {
+    window.speechSynthesis.cancel(); // stop any ongoing speech
+
+    const utterance = new SpeechSynthesisUtterance(
+      `${post.title}. ${post.description}`
+    );
+    utterance.lang = "ne-NP"; // change to "ne-NP" for Nepali
+    utterance.rate = 1;
+    utterance.pitch = 1;
+
+    setIsSpeaking(true);
+
+    utterance.onend = () => setIsSpeaking(false);
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const handleStop = () => {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+  };
+
   return (
     <div className="bg-white shadow rounded-xl p-5 w-full mt-5 max-h-[300px] overflow-auto mx-auto">
       {/* Header */}
@@ -69,7 +94,6 @@ const AwarenessPosts = () => {
             key={post.id}
             className="bg-gray-50 border rounded-lg p-4 shadow-sm hover:shadow-md transition"
           >
-            {/* Category + Date */}
             <div className="flex items-center gap-3 mb-2 text-sm">
               <span
                 className={`px-3 py-1 rounded-full text-xs font-medium ${post.categoryColor}`}
@@ -80,14 +104,8 @@ const AwarenessPosts = () => {
                 📅 {post.date}
               </span>
             </div>
-
-            {/* Title */}
             <h3 className="font-semibold text-gray-800">{post.title}</h3>
-
-            {/* Summary */}
             <p className="text-gray-600 text-sm mt-1">{post.summary}</p>
-
-            {/* Read more */}
             <button
               className="mt-3 text-blue-500 text-sm font-medium hover:underline"
               onClick={() => setSelectedPost(post)}
@@ -102,13 +120,12 @@ const AwarenessPosts = () => {
       {selectedPost && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 px-4"
-          onClick={() => setSelectedPost(null)} // Close on outside click
+          onClick={() => setSelectedPost(null)}
         >
           <div
             className="bg-white rounded-xl shadow-lg w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()} // Prevent close on modal click
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button */}
             <button
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
               onClick={() => setSelectedPost(null)}
@@ -116,20 +133,38 @@ const AwarenessPosts = () => {
               <X size={24} />
             </button>
 
-            {/* Title */}
             <h2 className="text-xl font-bold text-gray-800 mb-2">
               {selectedPost.title}
             </h2>
-
-            {/* Category + Date */}
             <p className="text-sm text-gray-500 mb-4">
               {selectedPost.category} • {selectedPost.date}
             </p>
-
-            {/* Description */}
             <p className="text-gray-700 leading-relaxed">
               {selectedPost.description}
             </p>
+
+            {/* Read / Stop buttons */}
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => handleSpeak(selectedPost)}
+                disabled={isSpeaking}
+                className={`px-4 py-2 rounded-lg text-white ${
+                  isSpeaking
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-500 hover:bg-blue-600"
+                }`}
+              >
+                {isSpeaking ? "Reading..." : "Read"}
+              </button>
+              {isSpeaking && (
+                <button
+                  onClick={handleStop}
+                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                >
+                  Stop
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
