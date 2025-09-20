@@ -1,8 +1,9 @@
 import Dashboard from "./Components/Dashboard/Dashboard";
-import DashboardCard from "./Components/Dashboard/DashboardCard";
-import Navbar from "./Components/Navbar/Navbar";
+
 import Signup from "./Components/Authentication/Signup";
 import Signin from "./Components/Authentication/Signin";
+import Otp from "./Components/Authentication/Otp";
+
 import AdminDashboard from "./Components/Admin/Dashboard";
 import NoticeAnnouncement from "./Components/Home/NoticeAnnouncement";
 import BudgetAllocation from "./Components/Home/BudgetAllocation";
@@ -11,26 +12,30 @@ import ProjectDashboard from "./Components/Project/ProjectDashboard";
 import EditProject from "./Components/Project/EditProject";
 import CreateAwarenessPost from "./Components/Notice/CreateAwarenessPost";
 import AwarenessNotice from "./Components/Notice/AwarenessNotice";
+import Layout from "./Components/Navbar/Layout";
+
+import { Navigate, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <>
-        {/* <Dashboard /> */}
-        {/* <Navbar /> */}
+    <Routes>
+      {/* Auth routes - no navbar */}
+      <Route path="/signin" element={<Signin />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/otp" element={<Otp />} />
 
-        {/* <AwarenessNotice /> */}
-        {/* <CreateAwarenessPost /> */}
-        {/* <EditProject /> */}
-        {/* <ProjectDashboard /> */}
-        {/* <AddNewProject /> */}
-        {/* <BudgetAllocation /> */}
-        {/* <NoticeAnnouncement /> */}
-        {/* <Signup /> */}
-        {/* <Signin /> */}
-        {/* <AdminDashboard /> */}
-      </>
-    </>
+      {/* Routes with Navbar */}
+      <Route element={<Layout />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/reports" element={<AdminDashboard />} />
+        {/* <Route path="/call" element={<Call />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/map" element={<Map />} /> */}
+      </Route>
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
