@@ -11,7 +11,7 @@ import {
   ISendOtpHandler,
 } from "@baijanstack/express-auth";
 import { userRepo } from "../repositories/userRepo";
-import { Role } from "../models/user";
+import { Role } from "../models/User";
 
 export type TUser = {
   name: string;
