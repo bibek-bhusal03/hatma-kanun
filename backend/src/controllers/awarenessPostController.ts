@@ -11,57 +11,50 @@ export const createPost = async (req: Request, res: Response) => {
   }
 };
 
-// Get all posts
+// Get all posts with populated category
 export const getPosts = async (_req: Request, res: Response) => {
   try {
-    const posts = await AwarenessPost.find();
+    const posts = await AwarenessPost.find().populate("category");
     res.json(posts);
   } catch (err: any) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// Get single post by ID
+// Get a single post by ID
 export const getPostById = async (req: Request, res: Response) => {
   try {
-    const post = await AwarenessPost.findById(req.params.id);
-    if (post) {
-      res.json(post);
-    } else {
-      res.status(404).json({ message: "Post not found" });
-    }
+    const post = await AwarenessPost.findById(req.params.id).populate(
+      "category"
+    );
+    if (post) res.json(post);
+    else res.status(404).json({ message: "Post not found" });
   } catch (err: any) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// Update post
+// Update a post
 export const updatePost = async (req: Request, res: Response) => {
   try {
     const post = await AwarenessPost.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
-    );
-    if (post) {
-      res.json(post);
-    } else {
-      res.status(404).json({ message: "Post not found" });
-    }
+    ).populate("category");
+    if (post) res.json(post);
+    else res.status(404).json({ message: "Post not found" });
   } catch (err: any) {
     res.status(400).json({ message: err.message });
   }
 };
 
-// Delete post
+// Delete a post
 export const deletePost = async (req: Request, res: Response) => {
   try {
     const post = await AwarenessPost.findByIdAndDelete(req.params.id);
-    if (post) {
-      res.json({ message: "Post deleted" });
-    } else {
-      res.status(404).json({ message: "Post not found" });
-    }
+    if (post) res.json({ message: "Post deleted" });
+    else res.status(404).json({ message: "Post not found" });
   } catch (err: any) {
     res.status(500).json({ message: err.message });
   }

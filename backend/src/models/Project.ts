@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import { IdGenerator } from "../controllers/utils/projectIdGenerator";
 
 export interface IExpense {
@@ -19,44 +19,63 @@ export interface IUpdateHistory {
 export interface IProject extends Document {
   projectId: string;
   projectName: string;
+  category: mongoose.Types.ObjectId;
   status: string;
   percentageCompletion: number;
   budget: number;
   startDate: Date;
   endDate: Date;
+  wardLocation: string;
+  latitude: number;
+  longitude: number;
+  responsibleParty: string;
+  responsiblePartyContact: string;
+  allocatedBudget: number;
+  fundSource: string;
+  beneficiaries: number;
+  photos: string[];
+  referenceDocs: string[];
   expenses: IExpense[];
   updateHistory: IUpdateHistory[];
 }
 
-const projectSchema = new Schema<IProject>(
-  {
-    projectId: { type: String, required: true },
-    projectName: { type: String, required: true },
-    status: { type: String, required: true },
-    percentageCompletion: { type: Number, default: 0 },
-    budget: { type: Number, required: true },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date },
-    expenses: [
-      {
-        date: { type: Date, required: true },
-        spentBy: { type: String, required: true },
-        receivedBy: { type: String, required: true },
-        purpose: { type: String, required: true },
-        amount: { type: Number, required: true },
-        attachment: { type: String },
-      },
-    ],
-    updateHistory: [
-      {
-        date: { type: Date, required: true },
-        updatedBy: { type: String, required: true },
-        changes: { type: String, required: true },
-      },
-    ],
-  },
-  { timestamps: true }
-);
+const ExpenseSchema = new Schema<IExpense>({
+  date: Date,
+  spentBy: String,
+  receivedBy: String,
+  purpose: String,
+  amount: Number,
+  attachment: String,
+});
+
+const UpdateHistorySchema = new Schema<IUpdateHistory>({
+  date: Date,
+  updatedBy: String,
+  changes: String,
+});
+
+const ProjectSchema = new Schema<IProject>({
+  projectId: { type: String },
+  projectName: { type: String, required: true },
+  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+  status: String,
+  percentageCompletion: Number,
+  budget: Number,
+  startDate: Date,
+  endDate: Date,
+  wardLocation: String,
+  latitude: Number,
+  longitude: Number,
+  responsibleParty: String,
+  responsiblePartyContact: String,
+  allocatedBudget: Number,
+  fundSource: String,
+  beneficiaries: Number,
+  photos: [String],
+  referenceDocs: [String],
+  expenses: [ExpenseSchema],
+  updateHistory: [UpdateHistorySchema],
+});
 
 const projectIdGenerator = new IdGenerator({
   prefix: "P",
@@ -64,7 +83,7 @@ const projectIdGenerator = new IdGenerator({
 });
 
 // Pre-save hook to auto-generate projectId
-projectSchema.pre("save", async function (next) {
+ProjectSchema.pre("save", async function (next) {
   if (!this.projectId) {
     const count = await mongoose.model<IProject>("Project").countDocuments();
     this.projectId = projectIdGenerator.execute(count);
@@ -72,4 +91,4 @@ projectSchema.pre("save", async function (next) {
   next();
 });
 
-export const Project = mongoose.model<IProject>("Project", projectSchema);
+export const Project = mongoose.model<IProject>("Project", ProjectSchema);

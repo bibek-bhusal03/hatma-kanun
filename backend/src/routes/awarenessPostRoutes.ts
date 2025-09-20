@@ -6,13 +6,51 @@ import {
   updatePost,
   deletePost,
 } from "../controllers/awarenessPostController";
+import { validateAccessToken } from "@baijanstack/express-auth";
+import { checkPermissionsMiddleware } from "../middlewares/auth";
+import { Role } from "../models/User";
 
 const router = Router();
 
-router.post("/", createPost);
-router.get("/", getPosts);
-router.get("/:id", getPostById);
-router.put("/:id", updatePost);
-router.delete("/:id", deletePost);
+router.post(
+  "/",
+  validateAccessToken,
+  checkPermissionsMiddleware({
+    apiPermissions: [Role.ADMIN],
+  }),
+  createPost
+);
+router.get(
+  "/",
+  validateAccessToken,
+  checkPermissionsMiddleware({
+    apiPermissions: [Role.USER, Role.ADMIN],
+  }),
+  getPosts
+);
+router.get(
+  "/:id",
+  validateAccessToken,
+  checkPermissionsMiddleware({
+    apiPermissions: [Role.USER, Role.ADMIN],
+  }),
+  getPostById
+);
+router.put(
+  "/:id",
+  validateAccessToken,
+  checkPermissionsMiddleware({
+    apiPermissions: [Role.USER, Role.ADMIN],
+  }),
+  updatePost
+);
+router.delete(
+  "/:id",
+  validateAccessToken,
+  checkPermissionsMiddleware({
+    apiPermissions: [Role.USER, Role.ADMIN],
+  }),
+  deletePost
+);
 
 export default router;
