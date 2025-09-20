@@ -7,6 +7,7 @@ const envSchema = z.object({
   WHITELISTED_ORIGINS: z.array(z.string()),
   DATABASE_URL: z.string().min(1),
   FRONTEND_URL: z.string().min(1),
+  BACKEND_URL: z.string().min(1),
   auth: z.object({
     SALT_ROUNDS: z.number(),
     TOKEN_SECRET: z.string().min(1),
@@ -29,6 +30,7 @@ const env: TEnv = {
   WHITELISTED_ORIGINS: process.env["WHITELISTED_ORIGINS"]?.split(",") ?? [],
   DATABASE_URL: process.env["DATABASE_URL"] || "",
   FRONTEND_URL: process.env["FRONTEND_URL"] || "",
+  BACKEND_URL: process.env["BACKEND_URL"] || "",
   auth: {
     SALT_ROUNDS: Number(process.env["SALT_ROUNDS"]) || 10,
     TOKEN_SECRET: process.env["TOKEN_SECRET"] || "",

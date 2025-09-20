@@ -10,7 +10,7 @@ declare global {
   namespace Express {
     interface Request {
       decodedAccessToken?: DecodedAccessToken;
-      files?: Multer.File[];
+      files?: { [fieldname: string]: Multer.File[] } | Multer.File[];
       file?: Multer.File;
     }
   }

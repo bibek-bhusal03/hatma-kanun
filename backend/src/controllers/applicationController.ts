@@ -6,10 +6,21 @@ import { generateSifarisPDF } from "./utils/generatePdf";
 
 export const createApplication = async (req: Request, res: Response) => {
   try {
-    const application = new Application(req.body);
+    const files = req.files as Express.Multer.File[];
+
+    const application = new Application({
+      ...req.body,
+      documents: files
+        ? files.map((f) => ({
+            fileName: f.originalname,
+            filePath: f.path,
+          }))
+        : [],
+    });
+
     await application.save();
 
-    if (application.sifarisType === "Education Certificate") {
+    if (application.sifarisType?.toString() == "68ce8943465713e684385dc2") {
       const { filePath, uniqueUrl } = await generateSifarisPDF(application);
       return res.status(201).json({
         message: "Application created & PDF generated",
@@ -18,7 +29,6 @@ export const createApplication = async (req: Request, res: Response) => {
         verifyUrl: uniqueUrl,
       });
     }
-
     res.status(201).json({ message: "Application created", application });
   } catch (err: any) {
     res.status(400).json({ message: err.message });
