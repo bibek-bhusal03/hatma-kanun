@@ -12,6 +12,7 @@ import projectRoutes from "./src/routes/projectRoutes";
 import rtiRequestRoutes from "./src/routes/rtiRequestRoutes";
 import sifarisRoutes from "./src/routes/sifarisRoute";
 import applicationRoutes from "./src/routes/applicationRoutes";
+import userRoutes from "./src/routes/userRoutes";
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use("/api/awarenessPost", awarenessPostRoutes);
 app.use("/api/sifaris", sifarisRoutes);
 app.use("/api/rtiRequest", rtiRequestRoutes);
 app.use("/api/project", projectRoutes);
+app.use("/api/users", userRoutes);
 
 app.use("/uploads", express.static("uploads"));
 app.use("/pdfs", express.static("pdfs"));

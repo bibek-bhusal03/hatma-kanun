@@ -152,7 +152,10 @@ export class VerifyEmailHandler implements IVerifyEmailHandler {
   updateIsEmailVerifiedField: (email: string) => Promise<void> = async (
     email
   ) => {
-    await userRepo.updateByEmail(email, { is_email_verified: true });
+    const user = await userRepo.updateByEmail(email, {
+      is_email_verified: true,
+    });
+    console.log("debug user", user);
   };
 
   isEmailAlreadyVerified: (email: string) => Promise<boolean> = async (

@@ -12,15 +12,24 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserByEmailOrId = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid user ID" });
+    const { identifier } = req.params;
+
+    if (!identifier) {
+      return res.status(400).json({ message: "Identifier is required" });
     }
 
-    const user = await User.findById(id).select("-password");
-    if (!user) return res.status(404).json({ message: "User not found" });
+    let user;
+    if (mongoose.Types.ObjectId.isValid(identifier)) {
+      user = await User.findById(identifier).select("-password");
+    } else {
+      user = await User.findOne({ email: identifier }).select("-password");
+    }
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     res.status(200).json(user);
   } catch (err: any) {
