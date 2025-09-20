@@ -80,13 +80,26 @@ const Signup = () => {
       const result = await response.json();
 
       if (response.ok) {
+        const response = await fetch(`${API_URL}/auth/send-otp`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: formData.email }),
+        });
+
+        const result = await response.json();
+        if (!result.ok) {
+          console.log(result);
+        }
+        setResponseMsg;
         setResponseMsg({
           type: "success",
           text: result.message || "Signup successful!",
         });
         // Redirect after 1.5s
         setTimeout(() => {
-          navigate("/otp", { email: formData.email, state: result });
+          navigate("/otp", {
+            state: { email: formData.email, phone: formData.phone },
+          });
         }, 1500);
       } else {
         setResponseMsg({

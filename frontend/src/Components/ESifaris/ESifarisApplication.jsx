@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
+import { useAuthStore } from "../../stores/authStore";
 
 const ESifarisApplication = () => {
   const navigate = useNavigate();
+  const { user, logout } = useAuthStore();
 
   const [form, setForm] = useState({
     applicantName: "",
@@ -203,7 +205,7 @@ const ESifarisApplication = () => {
               className="w-full p-2 border rounded mt-1 focus:ring focus:ring-indigo-300"
             >
               <option value="">Select a Sifaris Type</option>
-              <option value="Scholarship / Education Certificate Sifaris">
+              <option value="68ce8943465713e684385dc2">
                 Scholarship / Education Certificate Sifaris
               </option>
               <option value="Land Registration Sifaris">

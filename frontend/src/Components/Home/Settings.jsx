@@ -1,31 +1,42 @@
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { MdEmail, MdPhone, MdLanguage } from "react-icons/md";
-import { useLocalGovStore } from "../../stores/localGovStore";
 import { SlLocationPin } from "react-icons/sl";
+import { useLocalGovStore } from "../../stores/localGovStore";
+import { useAuthStore } from "../../stores/authStore";
 
 const Settings = () => {
   const { localGov } = useLocalGovStore();
-  const [user, setUser] = useState({
-    name: "Arun Sharma",
-    email: "arun.sharma@example.com",
-    phone: "+977-9801234567",
-    language: "English",
-    profileImage: "",
-  });
+  const { user, logout } = useAuthStore();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState(user);
+  const [formData, setFormData] = useState(user || {});
 
+  // Handle edit form changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle save (for now, just local update)
   const handleSave = () => {
-    setUser(formData); // Update dummy data
+    // Here you would send updated data to backend
     setIsEditing(false);
   };
+
+  // If user is not logged in → show Sign In button
+  if (!user) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <a
+          href="/signin"
+          className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600"
+        >
+          Sign In
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center items-start min-h-screen bg-gray-100 p-6 pb-25">
@@ -43,12 +54,10 @@ const Settings = () => {
           )}
           <h2 className="mt-3 text-xl font-bold text-gray-800">{user.name}</h2>
           <p className="text-sm text-gray-500">{user.email}</p>
-          <div>
-            <p className="text-sm flex items-center justify-center">
-              <SlLocationPin />{" "}
-              {localGov || "Detecting your local government..."}
-            </p>
-          </div>
+          <p className="text-sm flex items-center justify-center">
+            <SlLocationPin className="mr-1" />
+            {localGov || "Detecting your local government..."}
+          </p>
         </div>
 
         {/* User Information */}
@@ -63,13 +72,15 @@ const Settings = () => {
           </div>
 
           {/* Phone */}
-          <div className="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm">
-            <MdPhone className="text-green-500 w-6 h-6 mr-3" />
-            <div>
-              <p className="text-xs text-gray-500">Phone Number</p>
-              <p className="text-gray-800 font-medium">{user.phone}</p>
+          {user.phone && (
+            <div className="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm">
+              <MdPhone className="text-green-500 w-6 h-6 mr-3" />
+              <div>
+                <p className="text-xs text-gray-500">Phone Number</p>
+                <p className="text-gray-800 font-medium">{user.phone}</p>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Email */}
           <div className="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm">
@@ -81,22 +92,30 @@ const Settings = () => {
           </div>
 
           {/* Language */}
-          <div className="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm">
-            <MdLanguage className="text-purple-500 w-6 h-6 mr-3" />
-            <div>
-              <p className="text-xs text-gray-500">Preferred Language</p>
-              <p className="text-gray-800 font-medium">{user.language}</p>
+          {user.language && (
+            <div className="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm">
+              <MdLanguage className="text-purple-500 w-6 h-6 mr-3" />
+              <div>
+                <p className="text-xs text-gray-500">Preferred Language</p>
+                <p className="text-gray-800 font-medium">{user.language}</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Edit Button */}
-        <div className="mt-6 text-center">
+        {/* Buttons */}
+        <div className="mt-6 flex justify-between">
           <button
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition"
+            className="px-6 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600"
             onClick={() => setIsEditing(true)}
           >
             Edit Profile
+          </button>
+          <button
+            className="px-6 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600"
+            onClick={logout}
+          >
+            Logout
           </button>
         </div>
       </div>
@@ -126,14 +145,14 @@ const Settings = () => {
               <input
                 type="text"
                 name="phone"
-                value={formData.phone}
+                value={formData.phone || ""}
                 onChange={handleChange}
                 placeholder="Phone Number"
                 className="w-full p-2 border rounded-lg"
               />
               <select
                 name="language"
-                value={formData.language}
+                value={formData.language || "English"}
                 onChange={handleChange}
                 className="w-full p-2 border rounded-lg"
               >
@@ -144,7 +163,7 @@ const Settings = () => {
               <input
                 type="text"
                 name="profileImage"
-                value={formData.profileImage}
+                value={formData.profileImage || ""}
                 onChange={handleChange}
                 placeholder="Profile Image URL"
                 className="w-full p-2 border rounded-lg"
