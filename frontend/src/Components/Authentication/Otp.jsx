@@ -11,7 +11,7 @@ const OTPValidation = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [counter, setCounter] = useState(30); // 30s resend timer
+  const [counter, setCounter] = useState(30);
 
   // Countdown effect
   useEffect(() => {
@@ -23,7 +23,7 @@ const OTPValidation = () => {
   }, [counter]);
 
   // Handle OTP submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -33,15 +33,31 @@ const OTPValidation = () => {
       return;
     }
 
-    // 🚀 Mock API call
-    setTimeout(() => {
-      if (otp === "123456") {
-        setSuccess("OTP verified successfully!");
-        // e.g. navigate("/dashboard");
+    try {
+      const API_URL = "http://localhost:4000";
+
+      const response = await fetch(`${API_URL}/auth/verify-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          otp: otp,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccess(result.message || "OTP verified successfully!");
+        // Navigate to dashboard or login page after a short delay
+        setTimeout(() => navigate("/dashboard"), 1500);
       } else {
-        setError("Invalid OTP. Please try again.");
+        setError(result.message || "Invalid OTP. Please try again.");
       }
-    }, 1000);
+    } catch (err) {
+      console.error(err);
+      setError("Server error. Please try again later.");
+    }
   };
 
   const handleResend = () => {

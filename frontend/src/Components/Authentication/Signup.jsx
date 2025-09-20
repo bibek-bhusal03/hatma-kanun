@@ -12,7 +12,7 @@ const Signup = () => {
     terms: false,
   });
   const [errors, setErrors] = useState({});
-  const [responseMsg, setResponseMsg] = useState(null); // backend response
+  const [responseMsg, setResponseMsg] = useState(null);
 
   const validate = () => {
     let newErrors = {};
@@ -60,29 +60,46 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      try {
-        // Simulate backend API call
-        const fakeApiResponse = {
-          success: true,
-          message: "Signup successful! OTP sent to your phone.",
-        };
+    if (!validate()) return;
 
-        if (fakeApiResponse.success) {
-          setResponseMsg({ type: "success", text: fakeApiResponse.message });
-          // Redirect to OTP page
-          setTimeout(() => {
-            navigate("/otp", { state: fakeApiResponse });
-          }, 1500);
-        } else {
-          setResponseMsg({ type: "error", text: fakeApiResponse.message });
-        }
-      } catch (err) {
+    try {
+      // Use env variable for backend URL
+      const API_URL = "http://localhost:4000";
+
+      const response = await fetch(`${API_URL}/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          phone_no: formData.phone, // send as string to match backend schema
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setResponseMsg({
+          type: "success",
+          text: result.message || "Signup successful!",
+        });
+        // Redirect after 1.5s
+        setTimeout(() => {
+          navigate("/otp", { email: formData.email, state: result });
+        }, 1500);
+      } else {
         setResponseMsg({
           type: "error",
-          text: "Server error. Please try again.",
+          text: result.message || "Signup failed.",
         });
       }
+    } catch (err) {
+      console.error(err);
+      setResponseMsg({
+        type: "error",
+        text: "Server error. Please try again.",
+      });
     }
   };
 

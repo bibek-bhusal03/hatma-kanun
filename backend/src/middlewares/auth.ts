@@ -2,19 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { userRepo } from "../repositories/userRepo"; // adjust path as needed
 
-interface DecodedAccessToken {
-  email: string;
-  [key: string]: any; // extendable if you decode more fields from JWT
-}
-
-declare global {
-  namespace Express {
-    interface Request {
-      decodedAccessToken?: DecodedAccessToken;
-    }
-  }
-}
-
 /**
  * Middleware to check if the user has required permissions/roles
  * @param apiPermissions Array of roles or permissions (e.g. ["admin"])

@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import { v4 } from "uuid";
 import {
   ISignUpHandler,
   ILoginHandler,
@@ -27,6 +27,7 @@ type TEmailObj = {
 interface TSignUpBodyInput extends TEmailObj {
   name: string;
   password: string;
+  phone_no: number;
 }
 
 export class SignUpHandler implements ISignUpHandler {
@@ -45,10 +46,11 @@ export class SignUpHandler implements ISignUpHandler {
     async (body, hashedPassword) => {
       console.log("crypto logs before debug");
       await userRepo.create({
-        id: randomUUID(),
+        id: v4(),
         name: body.name,
         email: body.email,
         password: hashedPassword,
+        phone_no: body.phone_no,
         is_email_verified: false,
         role: Role.USER,
       });
