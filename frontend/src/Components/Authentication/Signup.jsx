@@ -1,88 +1,220 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    terms: false,
+  });
+  const [errors, setErrors] = useState({});
+  const [responseMsg, setResponseMsg] = useState(null); // backend response
+
+  const validate = () => {
+    let newErrors = {};
+
+    if (!formData.name.trim() || formData.name.trim().length < 3) {
+      newErrors.name = "Name must be at least 3 characters long.";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!formData.phone || !phoneRegex.test(formData.phone)) {
+      newErrors.phone = "Phone number must be 10 digits.";
+    }
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,}$/;
+    if (!formData.password || !passwordRegex.test(formData.password)) {
+      newErrors.password =
+        "Password must be 8+ chars, include uppercase, lowercase, number & special char.";
+    }
+
+    if (formData.confirmPassword !== formData.password) {
+      newErrors.confirmPassword = "Passwords do not match.";
+    }
+
+    if (!formData.terms) {
+      newErrors.terms = "You must agree to the terms.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validate()) {
+      try {
+        // Simulate backend API call
+        const fakeApiResponse = {
+          success: true,
+          message: "Signup successful! OTP sent to your phone.",
+        };
+
+        if (fakeApiResponse.success) {
+          setResponseMsg({ type: "success", text: fakeApiResponse.message });
+          // Redirect to OTP page
+          setTimeout(() => {
+            navigate("/otp", { state: fakeApiResponse });
+          }, 1500);
+        } else {
+          setResponseMsg({ type: "error", text: fakeApiResponse.message });
+        }
+      } catch (err) {
+        setResponseMsg({
+          type: "error",
+          text: "Server error. Please try again.",
+        });
+      }
+    }
+  };
+
   return (
-    <div className="w-full flex items-center justify-center h-screen">
-      <div className="p-10 border-1 border-black rounded-4xl">
-        <h1 className="text-2xl font-bold text-blue-600 text-center">
-          Create an account
-        </h1>
-        <p className="text-md text-center text-gray-400/90">
-          Set Up your account
-        </p>
-        <form action="" className="flex flex-col gap-3 ">
-          <div className="flex text-lg flex-col gap-1">
-            <label htmlFor="name" className="text-sm font-semibold">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Enter your full name "
-              className="outline:none focus:outline-blue-500 border-1 border-blue-300 px-3.5 py-1.5 rounded-md text-sm w-[250px]"
-            />
-          </div>
-          <div className="flex text-lg flex-col">
-            <label htmlFor="email" className="text-sm font-semibold">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              className="outline:none focus:outline-blue-500  border-1 border-blue-300 px-3 py-1 rounded-md text-sm"
-            />
-          </div>
-          <div className="flex text-lg flex-col">
-            <label htmlFor="phone" className="text-sm font-semibold">
-              Phone Number
-            </label>
-            <input
-              type="number"
-              id="phone"
-              name="phone"
-              placeholder="Enter your phone number"
-              className="outline:none focus:outline-blue-500  border-1 border-blue-300 px-3 py-1 rounded-md text-sm"
-            />
-          </div>
-          <div className="flex text-lg flex-col">
-            <label htmlFor="password" className="text-sm font-semibold">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="outline:none focus:outline-blue-500  border-1 border-blue-300 px-3 py-1 rounded-md text-sm"
-            />
-          </div>
-          <div className="flex text-lg flex-col">
-            <label htmlFor="confirm-password" className="text-sm font-semibold">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirm-password"
-              name="confirm-password"
-              className="outline:none focus:outline-blue-500  border-1 border-blue-300 px-3 py-1 rounded-md text-sm"
-            />
-          </div>
-          <div className="flex items-center gap-1">
-            <input type="checkbox" id="checkbox" />
-            <label htmlFor="checkbox" className="text-sm">
-              I Agree All Statements In Terms Of Service.
-            </label>
-          </div>
-          <div className="flex items-center justify-center w-full">
-            <input
+    <div className="p-2 max-h-screen overflow-auto">
+      <div className="w-full flex items-center justify-center bg-gray-50">
+        <div className="p-6 w-[350px] bg-white border rounded-xl shadow-lg">
+          <h1 className="text-2xl font-bold text-blue-600 text-center">
+            Create an account
+          </h1>
+          <p className="text-sm text-center text-gray-500 mb-6">
+            Set up your account
+          </p>
+
+          {responseMsg && (
+            <div
+              className={`mb-4 p-3 rounded text-sm ${
+                responseMsg.type === "success"
+                  ? "bg-green-100 text-green-700 border border-green-300"
+                  : "bg-red-100 text-red-700 border border-red-300"
+              }`}
+            >
+              {responseMsg.text}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            {/* Full Name */}
+            <div>
+              <label className="text-sm font-semibold">Full Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Enter your full name"
+                className="w-full border px-3 py-2 rounded-md text-sm"
+              />
+              {errors.name && (
+                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+              )}
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="text-sm font-semibold">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                className="w-full border px-3 py-2 rounded-md text-sm"
+              />
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+              )}
+            </div>
+
+            {/* Phone */}
+            <div>
+              <label className="text-sm font-semibold">Phone Number</label>
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="10-digit phone number"
+                className="w-full border px-3 py-2 rounded-md text-sm"
+              />
+              {errors.phone && (
+                <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="text-sm font-semibold">Password</label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full border px-3 py-2 rounded-md text-sm"
+              />
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+              )}
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <label className="text-sm font-semibold">Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="w-full border px-3 py-2 rounded-md text-sm"
+              />
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.confirmPassword}
+                </p>
+              )}
+            </div>
+
+            {/* Terms */}
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                name="terms"
+                checked={formData.terms}
+                onChange={handleChange}
+              />
+              <label className="text-sm">
+                I Agree All Statements In Terms Of Service.
+              </label>
+            </div>
+            {errors.terms && (
+              <p className="text-red-500 text-xs mt-1">{errors.terms}</p>
+            )}
+
+            {/* Submit */}
+            <button
               type="submit"
-              value="Sign up"
-              className="bg-blue-400 text-white mt-4  w-[150px] py-2 rounded-md cursor-pointer hover:bg-blue-500"
-            />
-          </div>
-        </form>
+              className="bg-blue-500 text-white mt-4 py-2 rounded-md hover:bg-blue-600 text-sm"
+            >
+              Sign up
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
