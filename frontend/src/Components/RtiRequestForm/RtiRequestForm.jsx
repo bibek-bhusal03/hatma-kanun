@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack, IoClose } from "react-icons/io5";
 
-// ✅ Validation Schemas
+// Validation Schemas
 const applicantSchema = yup.object().shape({
   fullName: yup.string().required("Full Name is required"),
   citizenship: yup
@@ -66,14 +66,14 @@ export default function RtiRequestForm() {
     mode: "onBlur",
   });
 
-  // ✅ Navigation between steps
+  // Navigation between steps
   const nextStep = async () => {
     const valid = await trigger();
     if (valid) setStep((prev) => prev + 1);
   };
   const prevStep = () => setStep((prev) => prev - 1);
 
-  // ✅ Submit final data
+  // Submit final data
   const onSubmit = (data) => {
     const formData = {
       ...getValues(),
@@ -91,7 +91,6 @@ export default function RtiRequestForm() {
 
   return (
     <div className="max-w-lg mx-auto mt-6 p-6 bg-white rounded-2xl shadow-lg">
-      {/* ✅ Top Bar with arrow and close */}
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={() => navigate("/")}
@@ -144,7 +143,7 @@ export default function RtiRequestForm() {
         />
       </div>
 
-      {/* ✅ Form */}
+      {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Step 1 */}
         {step === 1 && (
@@ -247,14 +246,14 @@ export default function RtiRequestForm() {
           </>
         )}
 
-        {/* ✅ Success Message */}
+        {/*    Success Message */}
         {submitted && (
           <p className="text-green-600 text-center mt-4 font-medium">
-            ✅ Application submitted successfully!
+            Application submitted successfully!
           </p>
         )}
 
-        {/* ✅ Navigation Buttons */}
+        {/*    Navigation Buttons */}
         <div className="flex justify-between mt-6">
           {step > 1 ? (
             <button
@@ -289,7 +288,7 @@ export default function RtiRequestForm() {
   );
 }
 
-// ✅ Tailwind helper styles
+//    Tailwind helper styles
 const styles = `
 .input {
   @apply w-full border border-gray-300 rounded-lg p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-400;

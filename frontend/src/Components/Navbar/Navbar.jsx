@@ -6,7 +6,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 
-const Header = () => {
+const Navbar = () => {
   return (
     <div className="fixed bottom-1 left-2 right-2 flex items-center justify-around text-[#374151] bg-[#ffffff] text-[20px] px-2 py-2 rounded-xl text-sm border-1 border-gray-500/50">
       <NavLink to="/home" className="flex flex-col items-center justify-center">
@@ -57,4 +57,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
