@@ -5,7 +5,7 @@ import { GiReceiveMoney } from "react-icons/gi";
 
 const Services = () => {
   return (
-    <div className="p-3 rounded-xl  mx-3 my-1 border-1">
+    <div className="p-3 rounded-xl  mx-3 my-5 border-1">
       <h1 className="font-semibold">Our Services</h1>
       <div className="mt-2 flex items-center justify-center gap-10 color-white w-full p-2">
         <div className="flex flex-col gap-2 items-center cursor-pointer">

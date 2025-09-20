@@ -3,13 +3,17 @@ import Header from "./Header";
 import Services from "./Services";
 import BudgetTracking from "./BudgetTracking";
 import RTIStatus from "./RTIStatus";
+import ReportAssistant from "./ReportAssistant";
+import AwarenessPosts from "./AwarenessPosts";
 const Dashboard = () => {
   return (
-    <div className="max-w-[800px] mx-auto bg-slate-100/80 p-1 max-h-screen overflow-auto pb-15">
+    <div className="max-w-[800px] gap-5 mx-auto bg-slate-100/80 p-1 max-h-screen overflow-auto pb-15">
       <Header />
       <Services />
       <BudgetTracking />
       <RTIStatus />
+      <ReportAssistant />
+      <AwarenessPosts />
     </div>
   );
 };
