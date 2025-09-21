@@ -65,21 +65,21 @@ const Header = () => {
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <div className="p-3 flex items-center justify-between rounded-xl mx-3 my-1 border">
+    <div className="py-3 flex items-center justify-between mx-3 my-1 border-b-1">
       {/* Left (user info) */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 px-3">
         <div className="bg-blue-400 rounded-full p-2.5 flex items-center justify-center">
-          <FaUser style={{ fontSize: "20px", color: "white" }} />
+          <FaUser style={{ fontSize: "25px", color: "white" }} />
         </div>
 
-        <div className="flex flex-col justify-center gap-2">
-          <p className="text-[14px] text-gray-600/80">Hello,</p>
-          <p>Arun Neupane</p>
+        <div className="flex flex-col justify-center gap-0">
+          <p className="text-[12px] text-gray-600/80">Hello,</p>
+          <p className="text-lg">Arun</p>
         </div>
       </div>
 
       <div>
-        <p className="text-sm flex items-center justify-center">
+        <p className="text-md flex items-center justify-center">
           <SlLocationPin /> {localGov || "Detecting your local government..."}
         </p>
       </div>
@@ -105,13 +105,13 @@ const Header = () => {
 
         {/* Popup */}
         {open && (
-          <div className="absolute right-0 top-12 w-80 bg-white shadow-xl rounded-xl border overflow-hidden z-50">
+          <div className="absolute right-0 top-12 w-80 bg-white shadow-2xl rounded-xl border border-gray-200 overflow-hidden z-50">
             {/* Header */}
-            <div className="flex justify-between items-center px-4 py-3 border-b">
+            <div className="flex justify-between items-center px-5 py-4 border-b bg-gray-50">
               <h3 className="text-lg font-semibold text-gray-800">
                 Notifications
               </h3>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllAsRead}
@@ -122,7 +122,7 @@ const Header = () => {
                 )}
                 <button
                   onClick={() => setOpen(false)}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-gray-500 hover:text-gray-700 transition"
                 >
                   <X size={20} />
                 </button>
@@ -130,12 +130,12 @@ const Header = () => {
             </div>
 
             {/* List */}
-            <div className="max-h-96 overflow-y-auto">
+            <div className="max-h-96 overflow-y-auto divide-y divide-gray-100">
               {notifications.length > 0 ? (
                 notifications.map((n) => (
                   <div
                     key={n.id}
-                    className={`px-5 py-3 border-b cursor-pointer transition ${
+                    className={`px-5 py-4 cursor-pointer transition ${
                       !n.read
                         ? "bg-blue-50 hover:bg-blue-100"
                         : "bg-white hover:bg-gray-50"
@@ -143,27 +143,25 @@ const Header = () => {
                     onClick={() => markAsRead(n.id)}
                   >
                     <div className="flex items-start gap-3">
-                      {!n.read ? (
-                        <span className="h-2.5 w-2.5 rounded-full bg-blue-500 mt-2 "></span>
-                      ) : (
-                        <span className="h-2.5 w-2.5 rounded-full bg-gray-300 mt-2"></span>
-                      )}
-                      <div
-                        className={`pl-2 rounded-lg border-l-2 border-blue-400 ${
-                          !n.read ? "border-blue-400" : "border-white"
+                      <span
+                        className={`h-2.5 w-2.5 rounded-full mt-2 ${
+                          !n.read ? "bg-blue-500" : "bg-gray-300"
                         }`}
-                      >
+                      ></span>
+                      <div className="flex-1">
                         <p className="font-medium text-gray-800">{n.title}</p>
-                        <p className="text-sm text-gray-600">{n.message}</p>
+                        <p className="text-sm text-gray-600 mt-0.5">
+                          {n.message}
+                        </p>
                         <p className="text-xs text-gray-400 mt-1">{n.date}</p>
                       </div>
                     </div>
                   </div>
                 ))
               ) : (
-                <p className="text-center text-gray-500 py-6">
+                <div className="py-10 text-center text-gray-500 text-sm">
                   No new notifications
-                </p>
+                </div>
               )}
             </div>
           </div>

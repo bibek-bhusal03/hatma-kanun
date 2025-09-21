@@ -5,48 +5,52 @@ const contacts = [
   {
     id: 1,
     name: "Ram Bahadur Thapa",
-    post: "Chief Officer",
+    post: "Information Officer",
     phone: "9841000000",
   },
   {
     id: 2,
     name: "Sita Sharma",
-    post: "Deputy Officer",
+    post: "Information Officer",
     phone: "9852000000",
   },
   {
     id: 3,
     name: "Hari Prasad",
-    post: "Secretary",
+    post: "Information Officer",
     phone: "9863000000",
   },
 ];
 
 const ContactPage = () => {
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-6">
-        📞 Contact Persons
+    <div className="max-w-3xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+        Contact Persons
       </h1>
-      <div className="space-y-4">
+
+      <div className="space-y-6">
         {contacts.map((person) => (
           <div
             key={person.id}
-            className="flex justify-between items-center border rounded-lg p-4 shadow-sm hover:shadow-md transition"
+            className="flex items-center justify-between bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition"
           >
             {/* Info */}
-            <div>
-              <h2 className="text-lg font-semibold">{person.name}</h2>
-              <p className="text-gray-600">{person.post}</p>
-              <p className="text-gray-800">{person.phone}</p>
+            <div className="flex flex-col">
+              <h2 className="text-lg font-semibold text-gray-900">
+                {person.name}
+              </h2>
+              <p className="text-sm text-gray-500">{person.post}</p>
+              <p className="text-sm text-gray-700 mt-1">{person.phone}</p>
             </div>
 
             {/* Call Button */}
             <a
               href={`tel:${person.phone}`}
-              className="bg-green-500 text-white p-3 rounded-full hover:bg-green-600 transition"
+              className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full transition"
+              aria-label={`Call ${person.name}`}
             >
-              <FaPhoneAlt size={20} />
+              <FaPhoneAlt size={18} />
             </a>
           </div>
         ))}

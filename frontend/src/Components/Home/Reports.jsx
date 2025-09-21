@@ -47,33 +47,45 @@ const dummyReports = [
 
 const Reports = () => {
   return (
-    <div className="p-6 bg-gray-50 max-h-screen overflow-auto pb-10">
-      <h1 className="text-2xl font-semibold mb-6 text-gray-800">Reports</h1>
+    <div className="p-6 bg-gray-50 max-h-screen overflow-auto pb-25">
+      <h1 className="text-2xl mb-6 text-center text-red-400 font-semibold">
+        Reports
+      </h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {dummyReports.map((report) => (
           <div
             key={report.id}
-            className="bg-white shadow-md rounded-lg p-5 border border-gray-200 hover:shadow-lg transition"
+            className="bg-white shadow-sm hover:shadow-md transition rounded-xl border border-gray-200 p-6 sm:p-5 flex flex-col gap-3"
           >
-            <h2 className="text-lg font-bold text-gray-700 mb-2">
+            {/* Title */}
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
               {report.title}
             </h2>
-            <p className="text-sm text-gray-500 mb-1">
-              <strong>Date:</strong> {report.date}
+
+            {/* Meta Info */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-gray-500 gap-1">
+              <p>
+                <span className="font-medium text-gray-600">Date:</span>{" "}
+                {report.date}
+              </p>
+              <p>
+                <span className="font-medium text-gray-600">Status:</span>{" "}
+                <span
+                  className={`font-semibold ${
+                    report.status === "Completed"
+                      ? "text-green-600"
+                      : "text-yellow-600"
+                  }`}
+                >
+                  {report.status}
+                </span>
+              </p>
+            </div>
+
+            {/* Summary */}
+            <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+              {report.summary}
             </p>
-            <p className="text-sm text-gray-500 mb-1">
-              <strong>Status:</strong>{" "}
-              <span
-                className={`font-medium ${
-                  report.status === "Completed"
-                    ? "text-green-600"
-                    : "text-yellow-600"
-                }`}
-              >
-                {report.status}
-              </span>
-            </p>
-            <p className="text-sm text-gray-600 mt-2">{report.summary}</p>
           </div>
         ))}
       </div>

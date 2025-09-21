@@ -44,13 +44,13 @@ const OTPValidation = () => {
           otp: otp,
         }),
       });
-
+      console.log(email, otp);
       const result = await response.json();
 
       if (response.ok) {
         setSuccess(result.message || "OTP verified successfully!");
-        // Navigate to dashboard or login page after a short delay
-        setTimeout(() => navigate("/dashboard"), 1500);
+        // redirect to home `/`
+        setTimeout(() => navigate("/signin"), 1500);
       } else {
         setError(result.message || "Invalid OTP. Please try again.");
       }
@@ -60,11 +60,29 @@ const OTPValidation = () => {
     }
   };
 
-  const handleResend = () => {
-    setCounter(30);
-    setError("");
-    setSuccess("New OTP sent!");
-    // 🚀 Call backend API to resend OTP
+  // Resend OTP
+  const handleResend = async () => {
+    try {
+      const API_URL = "http://localhost:4000";
+
+      const response = await fetch(`${API_URL}/auth/resend-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccess(result.message || "New OTP sent!");
+        setCounter(30);
+      } else {
+        setError(result.message || "Failed to resend OTP.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Server error while resending OTP.");
+    }
   };
 
   return (
