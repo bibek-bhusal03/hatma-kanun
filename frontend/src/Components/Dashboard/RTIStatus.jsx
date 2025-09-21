@@ -38,7 +38,7 @@ const RTIStatus = () => {
 
   return (
     <div className="bg-white my-5 shadow rounded-xl p-4 w-full max-w-[700px] mx-auto max-h-[300px] overflow-auto">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 sticky -top-4 bg-white">
         <h2 className="font-semibold text-gray-800">RTI Status</h2>
 
         <select

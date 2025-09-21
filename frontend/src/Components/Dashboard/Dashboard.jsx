@@ -7,7 +7,7 @@ import ReportAssistant from "./ReportAssistant";
 import AwarenessPosts from "./AwarenessPosts";
 const Dashboard = () => {
   return (
-    <div className="max-w-[800px] gap-5 mx-auto bg-slate-100/80 max-h-screen overflow-auto pb-15">
+    <div className="max-w-[800px] gap-5 mx-auto bg-slate-100/80 max-h-screen overflow-auto pb-20">
       <Header />
       <Services />
       <BudgetTracking />

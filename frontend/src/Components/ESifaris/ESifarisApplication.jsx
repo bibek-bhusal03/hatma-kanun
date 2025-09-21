@@ -20,7 +20,6 @@ const ESifarisApplication = () => {
   const [submitted, setSubmitted] = useState(false);
   const [applications, setApplications] = useState([]);
 
-  // 🔹 Dummy applications fetch
   useEffect(() => {
     setTimeout(() => {
       setApplications([
@@ -36,7 +35,6 @@ const ESifarisApplication = () => {
     }, 500);
   }, []);
 
-  // 🔹 Validation
   const validate = () => {
     const newErrors = {};
     if (!form.applicantName.trim())
@@ -54,7 +52,6 @@ const ESifarisApplication = () => {
     return newErrors;
   };
 
-  // 🔹 Submit
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -62,7 +59,6 @@ const ESifarisApplication = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       setSubmitted(true);
-
       setApplications((prev) => [
         ...prev,
         {
@@ -75,7 +71,6 @@ const ESifarisApplication = () => {
         },
       ]);
 
-      // Reset form
       setForm({
         applicantName: "",
         parentName: "",
@@ -86,34 +81,37 @@ const ESifarisApplication = () => {
         reason: "",
         files: null,
       });
+
       setTimeout(() => setSubmitted(false), 4000);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* 🔹 Header */}
-      <div className="flex items-center bg-indigo-600 text-white px-4 py-3 shadow">
+      {/* Header */}
+      <div className="flex items-center bg-indigo-600 text-white px-4 py-3 shadow-md">
         <button onClick={() => navigate(-1)} className="mr-3">
           <IoArrowBack size={24} />
         </button>
         <h1 className="text-lg font-semibold flex-1 text-center">E-Sifaris</h1>
       </div>
 
-      {/* 🔹 Content */}
+      {/* Content */}
       <div className="flex-1 p-4 space-y-6">
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow rounded-xl p-5 space-y-4"
+          className="bg-white shadow-md rounded-xl p-6 space-y-5"
         >
-          <h2 className="text-lg font-bold text-gray-700 mb-2">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
             New Application
           </h2>
 
           {/* Applicant Name */}
           <div>
-            <label className="block font-medium">Applicant Name</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Applicant Name
+            </label>
             <input
               type="text"
               placeholder="e.g. John Doe"
@@ -121,31 +119,37 @@ const ESifarisApplication = () => {
               onChange={(e) =>
                 setForm({ ...form, applicantName: e.target.value })
               }
-              className="w-full p-2 border rounded mt-1 focus:ring focus:ring-indigo-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
             {errors.applicantName && (
-              <p className="text-red-500 text-sm">{errors.applicantName}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.applicantName}
+              </p>
             )}
           </div>
 
           {/* Parent Name */}
           <div>
-            <label className="block font-medium">Father / Mother Name</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Father / Mother Name
+            </label>
             <input
               type="text"
               placeholder="e.g. Michael Doe"
               value={form.parentName}
               onChange={(e) => setForm({ ...form, parentName: e.target.value })}
-              className="w-full p-2 border rounded mt-1 focus:ring focus:ring-indigo-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
             {errors.parentName && (
-              <p className="text-red-500 text-sm">{errors.parentName}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.parentName}</p>
             )}
           </div>
 
           {/* Citizenship No */}
           <div>
-            <label className="block font-medium">Citizenship No.</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Citizenship No.
+            </label>
             <input
               type="text"
               placeholder="e.g. 123456789"
@@ -153,21 +157,25 @@ const ESifarisApplication = () => {
               onChange={(e) =>
                 setForm({ ...form, citizenshipNo: e.target.value })
               }
-              className="w-full p-2 border rounded mt-1 focus:ring focus:ring-indigo-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
             {errors.citizenshipNo && (
-              <p className="text-red-500 text-sm">{errors.citizenshipNo}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.citizenshipNo}
+              </p>
             )}
           </div>
 
-          {/* Address */}
-          <div className="flex flex-col sm:flex-row gap-2">
+          {/* Ward and Locality */}
+          <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
-              <label className="block font-medium">Ward</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Ward
+              </label>
               <select
                 value={form.ward}
                 onChange={(e) => setForm({ ...form, ward: e.target.value })}
-                className="w-full p-2 border rounded mt-1 focus:ring focus:ring-indigo-300"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               >
                 <option value="">Select Ward</option>
                 {[1, 2, 3, 4, 5].map((ward) => (
@@ -177,30 +185,34 @@ const ESifarisApplication = () => {
                 ))}
               </select>
               {errors.ward && (
-                <p className="text-red-500 text-sm">{errors.ward}</p>
+                <p className="text-red-500 text-sm mt-1">{errors.ward}</p>
               )}
             </div>
             <div className="flex-1">
-              <label className="block font-medium">Street / Locality</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Street / Locality
+              </label>
               <input
                 type="text"
                 placeholder="e.g. New Baneshwor"
                 value={form.locality}
                 onChange={(e) => setForm({ ...form, locality: e.target.value })}
-                className="w-full p-2 border rounded mt-1 focus:ring focus:ring-indigo-300"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               />
             </div>
           </div>
 
           {/* Sifaris Type */}
           <div>
-            <label className="block font-medium">Sifaris Type</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Sifaris Type
+            </label>
             <select
               value={form.sifarisType}
               onChange={(e) =>
                 setForm({ ...form, sifarisType: e.target.value })
               }
-              className="w-full p-2 border rounded mt-1 focus:ring focus:ring-indigo-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
               <option value="">Select a Sifaris Type</option>
               <option value="Scholarship / Education Certificate Sifaris">
@@ -211,79 +223,86 @@ const ESifarisApplication = () => {
               </option>
             </select>
             {errors.sifarisType && (
-              <p className="text-red-500 text-sm">{errors.sifarisType}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.sifarisType}</p>
             )}
           </div>
 
           {/* Reason */}
           <div>
-            <label className="block font-medium">Purpose / Reason</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Purpose / Reason
+            </label>
             <textarea
               placeholder="Provide a brief reason for your application..."
               value={form.reason}
               onChange={(e) => setForm({ ...form, reason: e.target.value })}
-              className="w-full p-2 border rounded mt-1 focus:ring focus:ring-indigo-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               rows={3}
             ></textarea>
             {errors.reason && (
-              <p className="text-red-500 text-sm">{errors.reason}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.reason}</p>
             )}
           </div>
 
           {/* File Upload */}
           <div>
-            <label className="block font-medium">Upload Documents</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Upload Documents
+            </label>
             <input
               type="file"
               multiple
               onChange={(e) => setForm({ ...form, files: e.target.files })}
-              className="mt-1"
+              className="mt-2 text-sm"
             />
             {errors.files && (
-              <p className="text-red-500 text-sm">{errors.files}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.files}</p>
             )}
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700"
+            className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
           >
             Submit Application
           </button>
 
+          {/* Success Message */}
           {submitted && (
-            <p className="text-green-600 font-medium mt-2">
+            <p className="text-green-600 font-medium mt-3 text-center">
               ✅ Application submitted successfully!
             </p>
           )}
         </form>
 
         {/* Applications List */}
-        <div className="bg-white shadow rounded-xl p-5">
-          <h3 className="font-bold mb-3">Your Applications</h3>
+        <div className="bg-white shadow-md rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            Your Applications
+          </h3>
           {applications.length === 0 ? (
             <p className="text-gray-500 text-sm">No applications yet.</p>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-4">
               {applications.map((app) => (
                 <div
                   key={app.id}
-                  className="p-4 border rounded-lg flex flex-col gap-1 bg-gray-50"
+                  className="p-4 border border-gray-200 rounded-lg bg-gray-50 hover:shadow-sm transition"
                 >
-                  <p className="font-semibold">{app.type}</p>
-                  <p>
+                  <p className="font-semibold text-gray-700">{app.type}</p>
+                  <p className="text-sm text-gray-600">
                     <span className="font-medium">Applicant:</span>{" "}
                     {app.applicant}
                   </p>
-                  <p>
+                  <p className="text-sm text-gray-600">
                     <span className="font-medium">Reason:</span> {app.reason}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-xs text-gray-500 mt-1">
                     Submitted on: {app.submittedAt}
                   </p>
                   <span
-                    className={`text-xs font-medium px-3 py-1 rounded-full self-start ${
+                    className={`inline-block mt-2 text-xs font-medium px-3 py-1 rounded-full ${
                       app.status === "Pending"
                         ? "bg-yellow-100 text-yellow-700"
                         : "bg-green-100 text-green-700"

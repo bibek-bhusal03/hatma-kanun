@@ -80,7 +80,7 @@ const AwarenessPosts = () => {
   return (
     <div className="bg-white shadow rounded-xl p-5 w-full mt-5 max-h-[300px] overflow-auto mx-auto">
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 sticky -top-5 bg-white">
         <h2 className="font-semibold text-gray-800 text-lg">Awareness Posts</h2>
         <button className="text-blue-500 text-sm font-medium hover:underline">
           View All
