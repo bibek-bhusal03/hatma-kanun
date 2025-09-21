@@ -10,7 +10,6 @@ export const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Limiter for application creation
 export const applicationLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 10,
@@ -21,7 +20,6 @@ export const applicationLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Limiter for PDF/verification endpoints
 export const pdfLimiter = rateLimit({
   windowMs: 10 * 60 * 1000,
   max: 20,

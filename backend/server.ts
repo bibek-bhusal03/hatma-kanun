@@ -5,7 +5,6 @@ import cors from "cors";
 import { env } from "./env";
 import dotenv from "dotenv";
 import { connectDB } from "./src/models/db";
-import path from "path";
 import categoryRoutes from "./src/routes/categoryRoutes";
 import awarenessPostRoutes from "./src/routes/awarenessPostRoutes";
 import projectRoutes from "./src/routes/projectRoutes";
@@ -13,6 +12,7 @@ import rtiRequestRoutes from "./src/routes/rtiRequestRoutes";
 import sifarisRoutes from "./src/routes/sifarisRoute";
 import applicationRoutes from "./src/routes/applicationRoutes";
 import userRoutes from "./src/routes/userRoutes";
+import chatRoutes from "./src/routes/chatRoutes";
 
 dotenv.config();
 
@@ -43,6 +43,7 @@ app.use("/api/sifaris", sifarisRoutes);
 app.use("/api/rtiRequest", rtiRequestRoutes);
 app.use("/api/project", projectRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.use("/uploads", express.static("uploads"));
 app.use("/pdfs", express.static("pdfs"));

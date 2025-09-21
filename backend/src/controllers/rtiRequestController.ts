@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { RTIRequest } from "../models/RtiRequest";
 
-// Create RTI Request
 export const createRTIRequest = async (req: Request, res: Response) => {
   try {
     const {
@@ -45,7 +44,6 @@ export const createRTIRequest = async (req: Request, res: Response) => {
   }
 };
 
-// Get all RTI Requests (admin)
 export const getAllRTIRequests = async (req: Request, res: Response) => {
   try {
     const { status, userId } = req.query;
@@ -63,7 +61,6 @@ export const getAllRTIRequests = async (req: Request, res: Response) => {
   }
 };
 
-// Get user's RTI Requests
 export const getUserRTIRequests = async (req: Request, res: Response) => {
   try {
     const requests = await RTIRequest.find({ userId: req.params.userId }).sort({
@@ -75,7 +72,6 @@ export const getUserRTIRequests = async (req: Request, res: Response) => {
   }
 };
 
-// Get single RTI Request
 export const getRTIRequestById = async (req: Request, res: Response) => {
   try {
     const request = await RTIRequest.findById(req.params.id).populate("userId");
@@ -86,7 +82,6 @@ export const getRTIRequestById = async (req: Request, res: Response) => {
   }
 };
 
-// Update RTI Request status/response (admin)
 export const updateRTIRequest = async (req: Request, res: Response) => {
   try {
     const { status, response } = req.body;
@@ -103,7 +98,6 @@ export const updateRTIRequest = async (req: Request, res: Response) => {
   }
 };
 
-// Delete RTI Request
 export const deleteRTIRequest = async (req: Request, res: Response) => {
   try {
     const deleted = await RTIRequest.findByIdAndDelete(req.params.id);

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { AwarenessPost } from "../models/AwarenessPost";
 
-// Create a new post
 export const createPost = async (req: Request, res: Response) => {
   try {
     const post = await AwarenessPost.create(req.body);
@@ -11,7 +10,6 @@ export const createPost = async (req: Request, res: Response) => {
   }
 };
 
-// Get all posts with populated category
 export const getPosts = async (_req: Request, res: Response) => {
   try {
     const posts = await AwarenessPost.find().populate("category");
@@ -21,7 +19,6 @@ export const getPosts = async (_req: Request, res: Response) => {
   }
 };
 
-// Get a single post by ID
 export const getPostById = async (req: Request, res: Response) => {
   try {
     const post = await AwarenessPost.findById(req.params.id).populate(
@@ -34,7 +31,6 @@ export const getPostById = async (req: Request, res: Response) => {
   }
 };
 
-// Update a post
 export const updatePost = async (req: Request, res: Response) => {
   try {
     const post = await AwarenessPost.findByIdAndUpdate(
@@ -49,7 +45,6 @@ export const updatePost = async (req: Request, res: Response) => {
   }
 };
 
-// Delete a post
 export const deletePost = async (req: Request, res: Response) => {
   try {
     const post = await AwarenessPost.findByIdAndDelete(req.params.id);

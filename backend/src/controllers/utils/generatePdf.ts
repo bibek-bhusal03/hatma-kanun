@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import QRCode from "qrcode";
 import puppeteer from "puppeteer";
-import { env } from "../../../env"; // adjust as needed
+import { env } from "../../../env";
 
 export const generateSifarisPDF = async (application: any) => {
   const uniqueUrl = `${env.BACKEND_URL}/pdfs/${application._id}.pdf`;

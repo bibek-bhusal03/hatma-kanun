@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
-import { userRepo } from "../repositories/userRepo"; // adjust path as needed
+import { userRepo } from "../repositories/userRepo";
+import { Role } from "../models/User";
 
 /**
  * Middleware to check if the user has required permissions/roles
@@ -29,7 +30,7 @@ export const checkPermissionsMiddleware = ({
       }
 
       // Check if user role matches at least one of the required permissions
-      if (apiPermissions.includes(user.role)) {
+      if (apiPermissions.includes(user.role as Role)) {
         return next();
       }
 

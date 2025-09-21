@@ -11,7 +11,6 @@ export const generatePdf = async (
 
   await page.setContent(htmlContent, { waitUntil: "networkidle0" });
 
-  // Ensure directory exists
   const pdfDir = path.join(process.cwd(), "public", "pdfs");
   if (!fs.existsSync(pdfDir)) fs.mkdirSync(pdfDir, { recursive: true });
 

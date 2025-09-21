@@ -33,7 +33,6 @@ export const createApplication = async (req: Request, res: Response) => {
   }
 };
 
-// Get all applications
 export const getApplications = async (req: Request, res: Response) => {
   try {
     const { status, userId } = req.query;
@@ -52,7 +51,6 @@ export const getApplications = async (req: Request, res: Response) => {
   }
 };
 
-// Get single application by ID
 export const getApplicationById = async (req: Request, res: Response) => {
   try {
     const application = await Application.findById(req.params.id)
@@ -66,7 +64,6 @@ export const getApplicationById = async (req: Request, res: Response) => {
   }
 };
 
-// Update an application (full update)
 export const updateApplication = async (req: Request, res: Response) => {
   try {
     const updatedApp = await Application.findByIdAndUpdate(
@@ -84,7 +81,6 @@ export const updateApplication = async (req: Request, res: Response) => {
   }
 };
 
-// Update application status only
 export const updateApplicationStatus = async (req: Request, res: Response) => {
   try {
     const { status, remarks } = req.body;
@@ -104,7 +100,6 @@ export const updateApplicationStatus = async (req: Request, res: Response) => {
   }
 };
 
-// Delete an application
 export const deleteApplication = async (req: Request, res: Response) => {
   try {
     const application = await Application.findByIdAndDelete(req.params.id);

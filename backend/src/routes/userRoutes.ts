@@ -11,15 +11,6 @@ import { Role } from "../models/User";
 const router = Router();
 
 router.get(
-  "/",
-
-  validateAccessToken,
-  checkPermissionsMiddleware({
-    apiPermissions: [Role.ADMIN],
-  }),
-  getAllUsers
-);
-router.get(
   "/:id",
 
   validateAccessToken,
@@ -27,6 +18,15 @@ router.get(
     apiPermissions: [Role.ADMIN, Role.USER],
   }),
   getUserByEmailOrId
+);
+router.get(
+  "/",
+
+  validateAccessToken,
+  checkPermissionsMiddleware({
+    apiPermissions: [Role.ADMIN],
+  }),
+  getAllUsers
 );
 router.put(
   "/:id/role",
