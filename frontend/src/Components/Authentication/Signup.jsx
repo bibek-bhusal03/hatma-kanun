@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -117,9 +117,19 @@ const Signup = () => {
   };
 
   return (
-    <div className="p-2 max-h-screen overflow-auto">
-      <div className="w-full flex items-center justify-center bg-gray-50">
-        <div className="p-6 w-[350px] bg-white border rounded-xl shadow-lg">
+    <div className="p-2 max-h-screen overflow-auto bg-gray-50">
+      <div className="w-full flex items-center justify-center">
+        <div className="p-6 w-[350px] bg-white border rounded-xl shadow-lg flex flex-col items-center">
+          {/* Logo */}
+          <NavLink to="/">
+            <img
+              src="/logo/logo-full.png" // Replace with your actual logo path
+              alt="Logo"
+              className="h-12 w-auto mb-4"
+            />
+          </NavLink>
+
+          {/* Heading */}
           <h1 className="text-2xl font-bold text-blue-600 text-center">
             Create an account
           </h1>
@@ -127,9 +137,10 @@ const Signup = () => {
             Set up your account
           </p>
 
+          {/* Response Message */}
           {responseMsg && (
             <div
-              className={`mb-4 p-3 rounded text-sm ${
+              className={`mb-4 p-3 rounded text-sm w-full ${
                 responseMsg.type === "success"
                   ? "bg-green-100 text-green-700 border border-green-300"
                   : "bg-red-100 text-red-700 border border-red-300"
@@ -139,7 +150,8 @@ const Signup = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-3">
             {/* Full Name */}
             <div>
               <label className="text-sm font-semibold">Full Name</label>
@@ -244,6 +256,20 @@ const Signup = () => {
               Sign up
             </button>
           </form>
+
+          {/* Divider */}
+          <div className="w-full border-t mt-6 mb-4"></div>
+
+          {/* Sign In Prompt */}
+          <p className="text-sm text-gray-600">
+            Already have an account?{" "}
+            <a
+              href="/signin"
+              className="text-blue-500 hover:underline font-medium"
+            >
+              Sign in
+            </a>
+          </p>
         </div>
       </div>
     </div>

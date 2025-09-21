@@ -13,19 +13,19 @@ const router = Router();
 router.get(
   "/",
 
-  validateAccessToken,
-  checkPermissionsMiddleware({
-    apiPermissions: [Role.ADMIN],
-  }),
+  // validateAccessToken,
+  // checkPermissionsMiddleware({
+  //   apiPermissions: [Role.ADMIN],
+  // }),
   getAllUsers
 );
 router.get(
   "/:id",
 
-  validateAccessToken,
-  checkPermissionsMiddleware({
-    apiPermissions: [Role.ADMIN, Role.USER],
-  }),
+  // validateAccessToken,
+  // checkPermissionsMiddleware({
+  //   apiPermissions: [Role.ADMIN, Role.USER],
+  // }),
   getUserByEmailOrId
 );
 router.put(

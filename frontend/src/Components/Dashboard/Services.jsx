@@ -7,7 +7,7 @@ import RtiRequestForm from "../RtiRequestForm/RtiRequestForm";
 
 const Services = () => {
   return (
-    <div className="p-3 rounded-xl  mx-3 my-5 border-1">
+    <div className=" rounded-xl  mx-3 my-5 border-b-1">
       <h1 className="font-semibold text-bold">Our Services</h1>
       <div className="mt-2 flex items-center justify-center gap-10 color-white w-full p-2">
         <NavLink

@@ -4,6 +4,7 @@ import { MdEmail, MdPhone, MdLanguage } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { useLocalGovStore } from "../../stores/localGovStore";
 import { useAuthStore } from "../../stores/authStore";
+import { NavLink } from "react-router-dom";
 
 const Settings = () => {
   const { localGov } = useLocalGovStore();
@@ -27,13 +28,40 @@ const Settings = () => {
   // If user is not logged in → show Sign In button
   if (!user) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <a
-          href="/signin"
-          className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600"
-        >
-          Sign In
-        </a>
+      <div className="flex items-center justify-center h-screen bg-gray-50 px-4">
+        <div className="max-w-md w-full text-center bg-white p-8 rounded-2xl shadow-lg">
+          {/* Motivating Text */}
+          <NavLink to="/" className="flex items-center justify-center">
+            <img
+              src="/logo/logo-full.png" // Replace with your actual logo path
+              alt="Logo"
+              className="h-12 w-auto mb-6"
+            />
+          </NavLink>
+          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+            Welcome Back to Progress
+          </h1>
+          <p className="text-gray-600 text-sm mb-8">
+            Empower your community. Track budgets, report issues, and stay
+            informed — all in one place.
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/signin"
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition"
+            >
+              Sign In
+            </a>
+            <a
+              href="/signup"
+              className="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200 transition"
+            >
+              Sign Up
+            </a>
+          </div>
+        </div>
       </div>
     );
   }

@@ -5,7 +5,7 @@ const AwarenessPosts = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // 🔹 Lock background scroll when modal is open
+  //  Lock background scroll when modal is open
   useEffect(() => {
     if (selectedPost) {
       document.body.style.overflow = "hidden";
@@ -18,7 +18,7 @@ const AwarenessPosts = () => {
     };
   }, [selectedPost]);
 
-  // 🔹 Dummy data
+  //  Dummy data
   const posts = [
     {
       id: 1,
@@ -54,7 +54,7 @@ const AwarenessPosts = () => {
     },
   ];
 
-  // 🔊 Text-to-Speech
+  // Text-to-Speech
   const handleSpeak = (post) => {
     window.speechSynthesis.cancel(); // stop any ongoing speech
 

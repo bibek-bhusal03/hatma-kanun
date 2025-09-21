@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
 
 const Signin = () => {
@@ -31,7 +31,6 @@ const Signin = () => {
       });
 
       const result = await response.json();
-
       if (response.ok) {
         // Save into zustand
         login(result.data);
@@ -51,7 +50,17 @@ const Signin = () => {
 
   return (
     <div className="w-full flex items-center justify-center h-screen bg-gray-50">
-      <div className="p-10 border rounded-2xl shadow-lg bg-white w-[350px]">
+      <div className="p-10 border rounded-2xl shadow-lg bg-white w-[350px] flex flex-col items-center">
+        {/* Logo */}
+        <NavLink to="/">
+          <img
+            src="/logo/logo-full.png" // Replace with your actual logo path
+            alt="Logo"
+            className="h-12 w-auto mb-6"
+          />
+        </NavLink>
+
+        {/* Heading */}
         <h1 className="text-2xl font-bold text-blue-600 text-center">
           Welcome back
         </h1>
@@ -59,11 +68,13 @@ const Signin = () => {
           Log in into your account
         </p>
 
+        {/* Error Message */}
         {error && (
           <p className="text-red-500 text-sm text-center mb-2">{error}</p>
         )}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-3">
           <input
             type="email"
             name="email"
@@ -83,14 +94,36 @@ const Signin = () => {
             required
           />
 
+          {/* Forgot Password */}
+          <div className="text-right text-sm">
+            <a
+              href="/forgot-password"
+              className="text-blue-500 hover:underline"
+            >
+              Forgot Password?
+            </a>
+          </div>
+
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="bg-blue-500 text-white mt-4 py-2 rounded-md hover:bg-blue-600 text-sm disabled:opacity-50"
+            className="bg-blue-500 text-white mt-2 py-2 rounded-md hover:bg-blue-600 text-sm disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
+
+        {/* Sign Up */}
+        <p className="text-sm text-center text-gray-600 mt-6">
+          Don’t have an account?{" "}
+          <a
+            href="/signup"
+            className="text-blue-500 hover:underline font-medium"
+          >
+            Sign up
+          </a>
+        </p>
       </div>
     </div>
   );

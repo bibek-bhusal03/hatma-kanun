@@ -97,7 +97,7 @@ const Map = () => {
         this._map = mapInstance;
         this._btn = document.createElement("button");
         this._btn.className =
-          "maplibregl-ctrl-icon maplibregl-ctrl-locate bg-white rounded p-1 shadow";
+          "maplibregl-ctrl-icon maplibregl-ctrl-locate bg-white rounded p-2 text-lg shadow";
         this._btn.type = "button";
         this._btn.title = "Locate Me";
         this._btn.innerHTML = "📍";
