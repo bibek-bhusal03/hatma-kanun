@@ -47,8 +47,10 @@ const dummyReports = [
 
 const Reports = () => {
   return (
-    <div className="p-6 bg-gray-50 max-h-screen overflow-auto pb-10">
-      <h1 className="text-2xl font-semibold mb-6 text-gray-800">Reports</h1>
+    <div className="p-6 bg-gray-50 max-h-screen overflow-auto pb-25">
+      <h1 className="text-2xl mb-6 text-center text-red-400 font-semibold">
+        Reports
+      </h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {dummyReports.map((report) => (
           <div
