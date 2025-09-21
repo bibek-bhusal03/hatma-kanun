@@ -60,6 +60,12 @@ const Settings = () => {
             >
               Sign Up
             </a>
+            <a
+              href="/admin"
+              className="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200 transition"
+            >
+              Admin
+            </a>
           </div>
         </div>
       </div>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import API from "../api/axios";
 import { Trash2, Shield, Search } from "lucide-react";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";

@@ -12,7 +12,6 @@ import {
   LineElement,
 } from "chart.js";
 import { motion } from "framer-motion";
-import API from "../api/axios";
 
 ChartJS.register(
   ArcElement,
@@ -31,16 +30,36 @@ export default function AdminDashboard() {
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
+    // Replace API calls with dummy data for budget distribution
     const fetchAll = async () => {
       try {
-        const [reportRes, userRes, alertRes] = await Promise.all([
-          API.get("/reports"),
-          API.get("/auth/users"),
-          API.get("/alerts"),
+        // Dummy data for reports
+        setReports([
+          { status: "pending", type: "infrastructure" },
+          { status: "verified", type: "health" },
+          { status: "solved", type: "education" },
+          { status: "working", type: "agriculture" },
+          { status: "pending", type: "health" },
+          { status: "verified", type: "education" },
         ]);
-        setReports(reportRes.data);
-        setUsers(userRes.data);
-        setAlerts(alertRes.data);
+
+        // Dummy data for users (roles)
+        setUsers([
+          { role: "Admin" },
+          { role: "User" },
+          { role: "Admin" },
+          { role: "User" },
+          { role: "Admin" },
+        ]);
+
+        // Dummy data for alerts
+        setAlerts([
+          { timestamp: "2023-09-15T08:00:00Z" },
+          { timestamp: "2023-09-15T09:00:00Z" },
+          { timestamp: "2023-09-16T08:00:00Z" },
+          { timestamp: "2023-09-17T08:00:00Z" },
+          { timestamp: "2023-09-17T09:00:00Z" },
+        ]);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -88,7 +107,7 @@ export default function AdminDashboard() {
         className="mb-6"
       >
         <h1 className="text-3xl font-bold text-gray-800 tracking-tight">
-          Admin Dashboard
+          Tilottama Municipality Budget Dashboard
         </h1>
       </motion.div>
 

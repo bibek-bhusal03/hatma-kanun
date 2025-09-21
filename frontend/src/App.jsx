@@ -20,6 +20,12 @@ import Call from "./Components/Home/Call";
 import { useLocalGovernment } from "./hooks/useLocalGovernment";
 import { Navigate, Routes, Route } from "react-router-dom";
 
+import AdminLayout from "./Components/layouts/AdminLayout";
+import AdminDashboard from "./Components/Admin/Dashboard";
+import ManageUsers from "./Components/Admin/Manage-Users";
+import ManageReports from "./Components/Admin/Manage-Reports";
+import SendAlerts from "./Components/Admin/SendAlerts";
+
 function App() {
   useLocalGovernment();
 
@@ -40,7 +46,13 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/map" element={<Map />} />
       </Route>
-
+      <Route element={<AdminLayout />}>
+        <Route path="/admin" element={<AdminLayout />} />
+        <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/manage-users" element={<ManageUsers />} />
+        <Route path="/manage-reports" element={<ManageReports />} />
+        <Route path="/send-alerts" element={<SendAlerts />} />
+      </Route>
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
