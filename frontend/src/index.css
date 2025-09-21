@@ -1,6 +1,6 @@
 @import "tailwindcss";
 /* index.css */
-@import "leaflet/dist/leaflet.css";
+/* @import "leaflet/dist/leaflet.css"; */
 
 * {
   -ms-overflow-style: none;
