@@ -5,7 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx --watch server.ts"
+    "start": "tsx --watch server.ts",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -33,11 +40,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/node": "^24.5.2",
     "@types/nodemailer": "^7.0.1",
     "@types/qrcode": "^1.5.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.0",
     "tsx": "^4.20.5"
   }
 }
