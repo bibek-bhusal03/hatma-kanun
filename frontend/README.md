@@ -1,6 +1,4 @@
-# ARIBT HACKATHON
-
-## Haatma Kaanun : Right to information (Khulla Adhikar)
+# Haatma Kaanun : (Saral sathi)
 
 Khulla Adhikar is a hackathon project for ARIBT hackathon.
 We are using React + Vite + Tailwind
